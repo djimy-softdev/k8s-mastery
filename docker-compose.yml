@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  frontend: 
+    image: localhost:8888/safrontend
+    ports:
+      - 80:80
+  
+  webapp:
+    image: localhost:8888/sawebapp
+    environment:
+      - SA_LOGIC_API_URL=http://logic:5000
+    ports:
+      - 8080:8080
+  
+  logic: 
+    image: localhost:8888/salogic
+    ports:
+      - 5000:5000
