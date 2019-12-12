@@ -1,9 +1,11 @@
-FROM maven:ibmjava-alpine as builder
-WORKDIR /var
-COPY . .
-RUN mvn install
+FROM golang:1.13-alpine AS builder
+WORKDIR /go/src/app
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+COPY main.go .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/bin/app
 
-FROM openjdk:8-jdk-alpine
-COPY  --from=builder /var/target/sentiment-analysis-web-0.0.1-SNAPSHOT.jar /
-EXPOSE 8080
-ENTRYPOINT java -jar sentiment-analysis-web-0.0.1-SNAPSHOT.jar --sa.logic.api.url=${SA_LOGIC_API_URL}
+FROM scratch
+COPY --from=builder /go/bin/app /
+ENTRYPOINT ["/app"]
