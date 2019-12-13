@@ -6,10 +6,15 @@ metadata:
     app: nginx
 
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:
     metadata:
       labels:
@@ -18,9 +23,15 @@ spec:
       containers:
       - name: nginx
         image: index.docker.io/djimydev/safrontend
+        imagePullPolicy: Always
+        env:
+          - name: BACKEND_ADDRESS
+            value: http://backend
         resources:
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "2000m"
+          requests:
+            cpu: "100m"
         ports:
         - containerPort: 80

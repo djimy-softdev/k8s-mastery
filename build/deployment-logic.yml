@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: salogic
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: salogic
+  template:
+    metadata:
+      labels:
+        app: salogic
+    spec:
+      containers:
+      - name: salogic
+        image: index.docker.io/djimydev/salogic
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "2000m"
+          requests:
+            cpu: "100m"
+        ports:
+        - containerPort: 5000
