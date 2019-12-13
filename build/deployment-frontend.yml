@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: localhost:8888/safrontend
+        image: index.docker.io/djimydev/safrontend
         resources:
           limits:
             memory: "128Mi"

@@ -1,18 +1,20 @@
 #! /bin/sh
 
 set -e
+registry=index.docker.io/djimydev
+
 
 cd sa-frontend
-docker build -t localhost:8888/safrontend .
-docker push localhost:8888/safrontend
+docker build -t $registry/safrontend .
+docker push $registry/safrontend
 cd ..
 
 cd sa-webapp
-docker build -t localhost:8888/sawebapp .
-docker push localhost:8888/sawebapp
+docker build -t $registry/sawebapp .
+docker push $registry/sawebapp
 cd ..
 
 cd sa-logic
-docker build -t localhost:8888/salogic .
-docker push localhost:8888/salogic
+docker build -t $registry/salogic .
+docker push $registry/salogic
 cd ..
