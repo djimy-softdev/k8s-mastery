@@ -5,8 +5,8 @@ registry=index.docker.io/djimydev
 
 
 cd sa-frontend
-docker build -t $registry/safrontend .
-docker push $registry/safrontend
+docker build -t $registry/safrontend-green .
+docker push $registry/safrontend-green
 cd ..
 
 # cd sa-webapp

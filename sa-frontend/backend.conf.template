@@ -21,7 +21,8 @@ server {
 
     #proxy the backend server
     location /sentiment {
-        proxy_pass   ${BACKEND_ADDRESS};
+        set $upstream $BACKEND_ADDRESS;
+        proxy_pass   $upstream;
     }
 
     # proxy the PHP scripts to Apache listening on 127.0.0.1:80

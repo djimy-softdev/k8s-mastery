@@ -45,7 +45,7 @@ class App extends Component {
         return (
             <MuiThemeProvider>
                 <div className="centerize">
-                    <Paper zDepth={1} className="content">
+                    <Paper zDepth={1} style={{backgroundColor: "darkseagreen"}} className="content">
                         <h2>Sentiment Analyser</h2>
                         <TextField ref={ref => this.textField = ref} onKeyUp={this.onEnterPress.bind(this)}
                                    hintText="Type your sentence."/>
