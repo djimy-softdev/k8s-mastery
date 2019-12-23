@@ -9,6 +9,19 @@ spec:
   gateways:
     - app-gateway
   http:
-    - route:
-      - destination:
-          host: safrontend
+    - match:
+        - uri:
+            prefix: /sentiment
+      route:
+        - destination:
+            host: backend
+            port:
+              number: 80
+    - match:
+        - uri:
+            regex: /.*
+      route:
+        - destination:
+            host: safrontend
+            port:
+              number: 80

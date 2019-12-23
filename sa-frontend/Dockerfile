@@ -5,5 +5,4 @@ RUN npm install && npm run build
 
 FROM nginx:alpine
 COPY --from=builder /var/build /usr/share/nginx/html
-COPY  ./backend.conf.template /etc/nginx/conf.d/
-ENTRYPOINT /bin/sh -c "envsubst '\$BACKEND_ADDRESS' < /etc/nginx/conf.d/backend.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+ENTRYPOINT /bin/sh -c "nginx -g 'daemon off;'"

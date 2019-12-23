@@ -14,12 +14,12 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-frontend
+  name: safrontend-white
   labels:
     app: nginx
 
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -32,14 +32,49 @@ spec:
     metadata:
       labels:
         app: nginx
+        color: white
     spec:
       containers:
-      - name: nginx
+      - name: frontend-white
         image: index.docker.io/djimydev/safrontend
         imagePullPolicy: Always
-        env:
-          - name: BACKEND_ADDRESS
-            value: http://backend
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "2000m"
+          requests:
+            cpu: "100m"
+        ports:
+        - containerPort: 80
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: safrontend-green
+  labels:
+    app: nginx
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+        color: green
+    spec:
+      containers:
+      - name: frontend-green
+        image: index.docker.io/djimydev/safrontend-green
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "128Mi"
